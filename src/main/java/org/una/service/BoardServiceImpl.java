@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 import org.una.domain.BoardVO;
+import org.una.domain.Criteria;
 import org.una.persistence.BoardDAO;
 
 @Service
@@ -50,4 +51,21 @@ public class BoardServiceImpl implements BoardService {
 		
 	}
 
+
+	public List<BoardVO>listPage(int page) throws Exception
+	{
+		return dao.listPage(page);
+	}
+	
+
+	public List<BoardVO>listCriteria(Criteria cri) throws Exception
+	{
+		return dao.listCriteria(cri);
+	}
+	
+
+	public int listCountCriteria(Criteria cri) throws Exception
+	{
+		return dao.countPaging(cri);
+	}
 }
