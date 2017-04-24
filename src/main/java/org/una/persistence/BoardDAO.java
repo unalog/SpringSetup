@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.una.domain.BoardVO;
 
-public interface BoardDAO {
+public interface BoardDAO{
 	
 	public void create(BoardVO vo) throws Exception;
 	

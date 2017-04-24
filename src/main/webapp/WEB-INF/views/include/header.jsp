@@ -29,7 +29,6 @@
   </head>
       <!-- jQuery 2.1.4 -->
     <script src="/resources/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    
   <body class="skin-blue sidebar-mini">
     <div class="wrapper">
       
@@ -455,7 +454,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
-            Board Management
+            General Form Elements
             <small>Preview</small>
           </h1>
           <ol class="breadcrumb">

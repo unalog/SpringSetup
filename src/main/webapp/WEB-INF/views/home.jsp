@@ -5,7 +5,7 @@
 	<!-- Main content -->
 	<section class="content">
 		<div class="row">
-			<!-- left colum -->
+			<!-- left column -->
 			<div class="col-md-12">
 				<!-- general form elements -->
 				<div class="box">

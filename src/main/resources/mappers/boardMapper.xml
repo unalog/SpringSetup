@@ -9,7 +9,7 @@
 		value(#{title},#{content},#{writer})
 	</insert>
 	
-	<select id="read" resultType="org.una.domain.BoardVO">
+	<select id="read" resultType="BoardVO">
 		select
 			bno, title, content, writer, regdate, viewcnt
 		from
@@ -35,7 +35,7 @@
 			bno = #{bno}	
 	</delete>
 	
-	<select id="listAll" resultType="org.una.domain.BoardVO">
+	<select id="listAll" resultType="BoardVO">
 	<![CDATA[
 		select
 			bno, title, content, writer, regdate, viewcnt
