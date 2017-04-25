@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 import org.una.domain.BoardVO;
 import org.una.domain.Criteria;
+import org.una.domain.SearchCriteria;
 
 @Repository
 public class BaordDAOImpl implements BoardDAO {
@@ -68,4 +69,14 @@ public class BaordDAOImpl implements BoardDAO {
 		return session.selectOne(namespace+".countPaging", cri);
 	}
 
+
+	public List<BoardVO> listSearch(SearchCriteria cri) throws Exception
+	{
+		return session.selectList(namespace+".listSearch", cri);
+	}
+	
+	public int listSearchCount(SearchCriteria cri) throws Exception
+	{
+		return session.selectOne(namespace+".listSearchCount", cri);
+	}
 }
