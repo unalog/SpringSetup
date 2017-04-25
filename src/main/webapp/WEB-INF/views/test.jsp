@@ -63,7 +63,7 @@
 			$(data).each(
 				function(){
 						
-					str += "<li data-rno='>"+this.rno+"' class='replyLi'>"
+					str += "<li data-rno='"+this.rno+"' class='replyLi'>"
 						+ this.rno + ":" + this.replytext
 						+ "<button>MOD</button></li>";
 					
@@ -86,7 +86,7 @@
 		$('#replyModBtn').on("click",function(){
 			
 			var rno = $(".modal-title").html();
-			var replytext = $("#replyText").val();
+			var replytext = $("#replytext").val();
 			
 			$.ajax({
 				type : 'put',
@@ -102,9 +102,9 @@
 					
 					if(result == 'SUCCESS'){
 						
-						alert("tnwjd 되었습니다.");
+						alert("수 되었습니다.");
 						$("#modDiv").hide("slow");
-						getAllList(replyPage);
+						getAllList();
 					}
 				}
 			});
