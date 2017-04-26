@@ -1,6 +1,5 @@
 package org.una.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
 
 import java.util.Hashtable;
 import java.util.List;

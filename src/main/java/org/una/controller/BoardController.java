@@ -1,7 +1,5 @@
 package org.una.controller;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
