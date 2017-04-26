@@ -1,6 +1,8 @@
 package org.una.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -78,5 +80,21 @@ public class BaordDAOImpl implements BoardDAO {
 	public int listSearchCount(SearchCriteria cri) throws Exception
 	{
 		return session.selectOne(namespace+".listSearchCount", cri);
+	}
+	
+
+	public void updateReplyCnt(Integer bno, int amount) throws Exception
+	{
+		Map<String, Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("bno", bno);
+		paramMap.put("amount", amount);
+		
+		
+		session.update(namespace+".updateReplyCnt", paramMap);
+	}
+
+	public void updateViewCnt(Integer bno) throws Exception
+	{
+		session.update(namespace+".updateViewCnt", bno);
 	}
 }

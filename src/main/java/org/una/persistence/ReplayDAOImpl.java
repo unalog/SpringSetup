@@ -59,5 +59,11 @@ public class ReplayDAOImpl implements ReplayDAO{
 		
 		return session.selectOne(namespace+".count", bno);
 	}
+	
+
+	public int getBno(Integer rno) throws Exception
+	{
+		return session.selectOne(namespace+".getBno", rno);
+	}
 
 }

@@ -10,6 +10,9 @@ public class BoardVO {
 	private String writer;
 	private Date regdate;
 	private int viewcnt;
+	private int replycnt;
+	
+	
 	public Integer getBno() {
 		return bno;
 	}
@@ -48,6 +51,12 @@ public class BoardVO {
 	}
 	
 	
+	public int getReplycnt() {
+		return replycnt;
+	}
+	public void setReplycnt(int replycnt) {
+		this.replycnt = replycnt;
+	}
 	@Override
 	public String toString() {
 		
