@@ -25,7 +25,7 @@ public class UploadFileUtils {
 		String savedName = uid.toString() + "_" + originalName;
 		String savedPath = calcPath (uploadPath);
 		
-		File target = new File(uploadPath, savedName);
+		File target = new File(uploadPath + savedPath, savedName);
 		FileCopyUtils.copy(fileData, target);
 		
 		String formatName = originalName.substring(originalName.lastIndexOf(".")+1);
