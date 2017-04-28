@@ -1,31 +1,48 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>   
 
 <%@include file="../include/header.jsp"%>
 <script type="text/javascript" src="/resources/js/upload.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.1/handlebars.js"></script>
 
 <style type="text/css">
-    .popup {position: absolute;}
-    .back { background-color: gray; opacity:0.5; width: 100%; height: 300%; overflow:hidden;  z-index:1101;}
-    .front { 
-       z-index:1110; opacity:1; boarder:1px; margin: auto; 
-      }
-     .show{
-       position:relative;
-       max-width: 1200px; 
-       max-height: 800px; 
-       overflow: auto;       
-     } 
-  	
-    </style>
+.popup {
+	position: absolute;
+}
+
+.back {
+	background-color: gray;
+	opacity: 0.5;
+	width: 100%;
+	height: 300%;
+	overflow: hidden;
+	z-index: 1101;
+}
+
+.front {
+	z-index: 1110;
+	opacity: 1;
+	boarder: 1px;
+	margin: auto;
+}
+
+.show {
+	position: relative;
+	max-width: 1200px;
+	max-height: 800px;
+	overflow: auto;
+}
+</style>
 
 
- <div class='popup back' style="display:none;"></div>
-    <div id="popup_front" class='popup front' style="display:none;">
-     <img id="popup_img">
-    </div>
-    
+<div class='popup back' style="display: none;"></div>
+<div id="popup_front" class='popup front' style="display: none;">
+	<img id="popup_img">
+</div>
+
 <!-- Main content -->
 <section class="content">
 	<div class="row">
@@ -68,12 +85,21 @@
 				<!-- /.box-body -->
 
 				<div class="box-footer">
-				<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
-			    <button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
-			    <button type="submit" class="btn btn-primary" id="goListBtn">GO LIST </button>
+					<div>
+						<hr>
+					</div>
+
+					<ul class="mailbox-attachments clearfix uploadedList">
+					</ul>
+
+					<c:if test="${login.uid == boardVO.writer }">
+						<button type="submit" class="btn btn-warning" id="modifyBtn">Modify</button>
+						<button type="submit" class="btn btn-danger" id="removeBtn">REMOVE</button>
+					</c:if>
+					<button type="submit" class="btn btn-primary" id="goListBtn">GO LIST</button>
 				</div>
 
-				
+
 
 			</div>
 			<!-- /.box -->
@@ -89,30 +115,37 @@
 				<div class="box-header">
 					<h3 class="box-title">ADD NEW REPLY</h3>
 				</div>
-				<div class="box-body">
-					<label for="exampleInputEmail1">Writer</label> 
-					<input class="form-control" type="text" placeholder="USER ID" id="newReplyWriter">
-					 <label for="exampleInputEmail1">Reply Text</label> 
-					 <input class="form-control" type="text" placeholder="REPLY TEXT" id="newReplyText">
- 				</div>
+				<c:if test="${not empty login }">
+					<div class="box-body">
+						<label for="exampleInputEmail1">Writer</label> 
+						<input class="form-control" type="text" placeholder="USER ID" id="newReplyWriter"> 
+						<label for="exampleInputEmail1">Reply Text</label> 
+						<input class="form-control" type="text" value="${login.uid}" readonly="readonly" id="newReplyText">
+					</div>
+				</c:if>
 				<!-- /.box-body -->
 				<div class="box-footer">
 					<button type="button" class="btn btn-primary" id="replyAddBtn">ADD REPLY</button>
 				</div>
 			</div>
+			
+			<c:if test="${empty login }">
+				<div class="box-body">
+					<div><a href="javascript:goLogin();">Login Please</a></div>
+				</div>
+			</c:if>
 
-		
-		<!-- The time line -->
-		<ul class="timeline">
-		  <!-- timeline time label -->
-		<li class="time-label" id="repliesDiv">
-		  <span class="bg-green"> Replies List 
-		  	<small id = "replycntSmall">[ ${boardVO.replycnt} ]</small>
-		  
-		  </span>
-		  </li>
-		</ul>
-		   
+
+			<!-- The time line -->
+			<ul class="timeline">
+				<!-- timeline time label -->
+				<li class="time-label" id="repliesDiv"><span class="bg-green">
+						Replies List <small id="replycntSmall">[
+							${boardVO.replycnt} ]</small>
+
+				</span></li>
+			</ul>
+
 			<div class='text-center'>
 				<ul id="pagination" class="pagination pagination-sm no-margin ">
 
@@ -123,27 +156,29 @@
 		<!-- /.col -->
 	</div>
 	<!-- /.row -->
-	
+
 	<!-- Modal -->
-<div id="modifyModal" class="modal modal-primary fade" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title"></h4>
-      </div>
-      <div class="modal-body" data-rno>
-        <p><input type="text" id="replytext" class="form-control"></p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
-        <button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>     
+	<div id="modifyModal" class="modal modal-primary fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title"></h4>
+				</div>
+				<div class="modal-body" data-rno>
+					<p>
+						<input type="text" id="replytext" class="form-control">
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+					<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 <!-- /.content -->
 <!-- /.content-wrapper -->
@@ -158,8 +193,10 @@
   <h3 class="timeline-header"><strong>{{rno}}</strong> -{{replyer}}</h3>
   <div class="timeline-body">{{replytext}} </div>
     <div class="timeline-footer">
+	{{#eqReplyer replyer}}
      <a class="btn btn-primary btn-xs" 
 	    data-toggle="modal" data-target="#modifyModal">Modify</a>
+	{{/eqReplyer}}
     </div>
   </div>			
 </li>
@@ -168,6 +205,16 @@
 </script>
 
 <script>
+	Handlebars.registerHelper("eqReplyer", function(replyer, block) {
+		
+		var accum = '';
+		
+		if(replyer == '${login.uid}'){
+			accum += block.fn();
+		}
+		
+		return accum;
+	});
 	Handlebars.registerHelper("prettifyDate", function(timeValue) {
 		var dateObj = new Date(timeValue);
 		var year = dateObj.getFullYear();
@@ -399,5 +446,5 @@
 	</span>
   </div>
 </li>                
-</script>  
+</script>
 <%@include file="../include/footer.jsp"%>
